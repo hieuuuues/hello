@@ -1,0 +1,213 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f4f4f9; /* Nền nhẹ nhàng */
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 2px solid #ddd;
+  position: relative; /* Để căn chỉnh thời gian */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+}
+
+#countdown {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  background-color: #007bff; /* Nền xanh */
+  color: #fff; /* Chữ trắng */
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: 2px solid #0056b3;
+  position: absolute; /* Đưa thời gian vào giữa */
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+  animation: pulse 1.5s infinite; /* Thêm hiệu ứng */
+}
+
+@keyframes pulse {
+  0% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+}
+
+#submit-btn,
+#back-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+}
+
+#submit-btn:hover,
+#back-btn:hover {
+  background-color: #0056b3;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+  margin: 20px;
+  overflow: hidden;
+}
+
+.passage {
+  width: 50%;
+  padding: 20px;
+  border-right: 2px solid #ddd;
+  overflow-y: auto;
+  background-color: #f9f9fc; /* Nền nhẹ nhàng */
+}
+
+.questions {
+  width: 50%;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #fefefe; /* Nền trắng */
+}
+
+.question {
+  margin-bottom: 20px;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.question p {
+  font-weight: bold;
+  color: #333;
+}
+
+#result {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+  font-size: 18px;
+  text-align: center;
+}
+#circle-button {
+  width: 60px;
+  height: 60px;
+  background-color: #007bff;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#circle-button:active {
+  transform: scale(1.3);
+  background-color: #0056b3;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal */
+#modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease;
+}
+
+/* Nội dung Modal */
+.modal-content {
+  background: #d6e4f0;
+  border-radius: 10px;
+  padding: 20px;
+  width: 70%;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* Nút đóng */
+#close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  color: #555;
+  cursor: pointer;
+}
+
+#close-btn:hover {
+  color: #ff0000;
+}
+
+/* Loading và câu hỏi */
+#loading {
+  font-size: 20px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+#question {
+  font-size: 20px;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* Hiệu ứng fade-in */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Ẩn */
+.hidden {
+  display: none;
+}

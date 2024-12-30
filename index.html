@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estudy - Học IELTS Online</title>
+    <style>
+      :root {
+        --primary-color: #3f51b5;
+        --secondary-color: #1a237e;
+        --accent-color: #536dfe;
+        --background-color: #e3f2fd;
+        --text-color: #1a237e;
+        --shadow-color: rgba(63, 81, 181, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        color: var(--text-color);
+        line-height: 1.7;
+      }
+
+      /* Header Styles */
+      .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 8px 32px var(--shadow-color);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .logo:hover {
+        transform: translateX(5px);
+      }
+
+      .logo img {
+        width: 44px;
+        height: auto;
+      }
+
+      .logo-text {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        letter-spacing: -0.02em;
+      }
+
+      /* User Info Section */
+      .user-info {
+        position: fixed;
+        top: 90px;
+        right: 24px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 1.25rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px var(--shadow-color);
+        backdrop-filter: blur(12px);
+        z-index: 900;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .user-info:hover {
+        transform: translateY(-5px);
+      }
+
+      .user-info p {
+        margin: 8px 0;
+        font-size: 0.95rem;
+        color: var(--secondary-color);
+        font-weight: 500;
+      }
+
+      /* Navigation Menu */
+      .nav-menu {
+        display: flex;
+        gap: 2.5rem;
+      }
+
+      .nav-menu a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 600;
+        padding: 0.75rem 1.25rem;
+        border-radius: 30px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      }
+
+      .nav-menu a:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px var(--shadow-color);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-top: 120px;
+        padding: 2.5rem;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Hero Section */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        padding: 5rem 0;
+        align-items: center;
+      }
+
+      .hero-text {
+        padding-right: 2.5rem;
+      }
+
+      .hero-text h1 {
+        font-size: 3.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .hero-text p {
+        font-size: 1.25rem;
+        margin-bottom: 2.5rem;
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+
+      .hero-image {
+        position: relative;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .hero-image:hover {
+        transform: translateY(-10px) rotate(2deg);
+      }
+
+      .hero-image img {
+        width: 100%;
+        border-radius: 24px;
+        box-shadow: 0 16px 48px var(--shadow-color);
+      }
+
+      /* Features Grid */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.5rem;
+        padding: 5rem 0;
+      }
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px var(--shadow-color);
+        backdrop-filter: blur(12px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 48px var(--shadow-color);
+      }
+
+      .feature-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 1.25rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      /* Button Styles */
+      .btn {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 12px var(--shadow-color);
+      }
+
+      .btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px var(--shadow-color);
+      }
+
+      /* Logout Button */
+      .logout-btn {
+        padding: 0.75rem 1.75rem;
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .logout-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px var(--shadow-color);
+      }
+
+      /* Hamburger Menu Styles */
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        padding: 12px;
+        z-index: 1002;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+
+      .hamburger:hover {
+        background: rgba(63, 81, 181, 0.1);
+      }
+
+      .hamburger-lines {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .hamburger span {
+        display: block;
+        width: 32px;
+        height: 3px;
+        background-color: var(--primary-color);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 4px;
+      }
+
+      /* Mobile Menu Styles */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 300px;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 90px 0 20px;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        box-shadow: -8px 0 32px var(--shadow-color);
+        backdrop-filter: blur(12px);
+      }
+
+      .mobile-menu.active {
+        right: 0;
+      }
+
+      .mobile-user-info {
+        padding: 24px;
+        background: var(--background-color);
+        border-bottom: 1px solid var(--shadow-color);
+        margin-bottom: 20px;
+      }
+
+      .mobile-user-info p {
+        color: var(--secondary-color);
+        margin: 10px 0;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .mobile-nav-links a {
+        padding: 16px 24px;
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .mobile-nav-links a:hover {
+        background: rgba(63, 81, 181, 0.1);
+        color: var(--primary-color);
+      }
+
+      .mobile-logout-btn {
+        margin: 24px;
+        display: block;
+        text-align: center;
+        padding: 14px 24px;
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .mobile-logout-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px var(--shadow-color);
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(4px);
+        z-index: 999;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+
+        .nav-container .nav-menu,
+        .nav-container .logout-btn {
+          display: none;
+        }
+
+        .hamburger.active span:nth-child(1) {
+          transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+          transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+          display: block;
+        }
+
+        .overlay.active {
+          display: block;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 3rem 0;
+          gap: 3rem;
+        }
+
+        .hero-text {
+          padding-right: 0;
+        }
+
+        .hero-text h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nav-container {
+          padding: 1rem;
+        }
+
+        .logo-text {
+          font-size: 1.5rem;
+        }
+
+        .main-content {
+          padding: 1.5rem;
+        }
+
+        .mobile-menu {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="nav-container">
+        <div class="logo">
+          <img src="Remove-bg.ai_1734260849847.png" alt="Estudy Logo" />
+          <span class="logo-text">Estudy</span>
+        </div>
+
+        <!-- Hamburger Menu Button -->
+        <div class="hamburger">
+          <div class="hamburger-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-menu">
+          <a href="./reading.html">Reading</a>
+          <a href="./listening.html">Listening</a>
+          <a href="./flappy_bird_game/game.html">Game</a>
+          <a href="#">Grammar</a>
+          <a href="./flashcard_basic.html">Vocabulary</a>
+        </nav>
+        <a href="logout.php" class="logout-btn">Đăng xuất</a>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+          <div class="mobile-user-info">
+            <p></p>
+            <p></p>
+          </div>
+          <div class="mobile-nav-links">
+            <a href="./reading.html">Reading</a>
+            <a href="./listening.html">Listening</a>
+            <a href="./flappy_bird_game/game.html">Game</a>
+            <a href="#">Grammar</a>
+            <a href="./flashcard_basic.html">Vocabulary</a>
+          </div>
+          <a href="logout.php" class="mobile-logout-btn">Đăng xuất</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-text">
+          <h1>
+            Học IELTS Online<br />cùng
+            <span style="color: var(--primary-color)">Estudy</span>
+          </h1>
+          <p>
+            Nâng cao kỹ năng Reading và Listening với phương pháp học tập hiệu
+            quả và thú vị.
+          </p>
+          <a href="#features" class="btn">Khám phá ngay</a>
+        </div>
+        <div class="hero-image">
+          <img src="https://placehold.co/600x400" alt="IELTS Study" />
+        </div>
+      </section>
+
+      <section id="features" class="features-grid">
+        <div class="feature-card">
+          <h3>IELTS Reading</h3>
+          <p>
+            Luyện tập với các bài đọc theo format IELTS, kèm giải thích chi tiết
+            và chiến thuật làm bài.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>IELTS Listening</h3>
+          <p>
+            Nâng cao kỹ năng nghe với các bài tập được thiết kế theo chuẩn đề
+            thi IELTS.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>Vocabulary Building</h3>
+          <p>Học từ vựng thông qua flashcard và trò chơi tương tác hấp dẫn.</p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Add mobile menu toggle functionality if needed
+      const menuButton = document.querySelector(".hamburger");
+      const navMenu = document.querySelector(".nav-menu");
+
+      if (menuButton) {
+        menuButton.addEventListener("click", () => {
+          navMenu.classList.toggle("active");
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const hamburger = document.querySelector(".hamburger");
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const overlay = document.querySelector(".overlay");
+
+        function toggleMenu() {
+          hamburger.classList.toggle("active");
+          mobileMenu.classList.toggle("active");
+          overlay.classList.toggle("active");
+          document.body.style.overflow = mobileMenu.classList.contains("active")
+            ? "hidden"
+            : "auto";
+        }
+
+        hamburger.addEventListener("click", toggleMenu);
+        overlay.addEventListener("click", toggleMenu);
+
+        // Close menu when clicking mobile nav links
+        const mobileNavLinks = document.querySelectorAll(
+          ".mobile-nav-links a, .mobile-logout-btn"
+        );
+        mobileNavLinks.forEach((link) => {
+          link.addEventListener("click", toggleMenu);
+        });
+
+        // Reset menu state on window resize
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 768) {
+            hamburger.classList.remove("active");
+            mobileMenu.classList.remove("active");
+            overlay.classList.remove("active");
+            document.body.style.overflow = "auto";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

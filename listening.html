@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listening Lessons</title>
+    <link rel="stylesheet" href="style_reading.css" />
+  </head>
+  <style>
+    /* Reset CSS */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Variables */
+    :root {
+      --primary-color: #3f51b5;
+      --secondary-color: #1a237e;
+      --accent-color: #536dfe;
+      --background-color: #e3f2fd;
+      --text-color: #1a237e;
+      --shadow-color: rgba(63, 81, 181, 0.1);
+      --white: #ffffff;
+      --shadow-sm: 0 2px 8px var(--shadow-color);
+      --shadow-md: 0 4px 12px var(--shadow-color);
+      --shadow-lg: 0 8px 24px var(--shadow-color);
+      --border-radius: 16px;
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Body styles */
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      line-height: 1.7;
+      color: var(--text-color);
+      background: linear-gradient(135deg, var(--background-color), #fff);
+      min-height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary-color);
+      padding: 20px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+    }
+
+    header .Back {
+      background: var(--white);
+      color: var(--primary-color);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    header .Back:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      background: var(--accent-color);
+      color: var(--white);
+    }
+
+    /* Main Content Layout */
+    main {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 5%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    /* Progress Tracker - Moved to sidebar */
+    .progress-tracker {
+      background: var(--white);
+      padding: 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 30px;
+    }
+
+    .progress-tracker h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 1.3em;
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      background-color: var(--background-color);
+      border-radius: 30px;
+      height: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar span {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--accent-color)
+      );
+      border-radius: 30px;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Tips section - Moved to sidebar */
+    .tips-section {
+      background: var(--white);
+      padding: 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+    }
+
+    .tips-section h2 {
+      color: var(--primary-color);
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .tips-section ul li {
+      margin-bottom: 15px;
+      padding-left: 25px;
+      position: relative;
+      font-size: 0.95em;
+    }
+
+    .tips-section ul li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+    }
+
+    /* Main Content Area */
+    .content-area {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    /* Title Section */
+    .readinglesson {
+      border-radius: 25px;
+      font-size: 2.5em;
+      padding: 40px;
+      margin: 0;
+      font-weight: 800;
+      text-align: left;
+      background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color)
+      );
+      color: var(--white);
+    }
+
+    /* Intro section */
+    .intro {
+      padding: 40px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .intro p {
+      font-size: 1.15em;
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+
+    /* Lesson buttons */
+    .lesson-buttons {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .lesson-buttons a {
+      text-decoration: none;
+      font-size: 1.1em;
+      padding: 20px;
+      background: var(--background-color);
+      color: var(--text-color);
+      border-radius: var(--border-radius);
+      text-align: left;
+      font-weight: 500;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .lesson-buttons a::after {
+      content: "→";
+      font-size: 1.2em;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: var(--transition);
+    }
+
+    .lesson-buttons a:hover {
+      background: var(--white);
+      border-color: var(--primary-color);
+      transform: translateX(10px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .lesson-buttons a:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Sample Exercise */
+    .sample-exercise {
+      padding: 40px;
+      background: var(--background-color);
+      margin-top: auto;
+    }
+
+    .sample-exercise h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 1.6em;
+    }
+
+    .sample-exercise blockquote {
+      background: var(--white);
+      border-left: 4px solid var(--accent-color);
+      margin: 15px 0;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      main {
+        padding: 20px;
+        margin: 20px auto;
+      }
+
+      .readinglesson {
+        font-size: 2em;
+        padding: 30px;
+      }
+
+      .intro,
+      .lesson-buttons,
+      .sample-exercise {
+        padding: 30px;
+      }
+
+      .sidebar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animations */
+    .content-area {
+      animation: slideIn 0.6s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: var(--white);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(-20px);
+      transition: var(--transition);
+    }
+
+    .modal.show .modal-content {
+      transform: translateY(0);
+    }
+
+    .close-modal {
+      position: absolute;
+      right: 2px;
+      top: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      color: var(--accent-color);
+    }
+  </style>
+  <body>
+    <h1></h1>
+    <!-- Header -->
+    <header>
+      <button onclick="window.location.href='index.html'" class="Back">
+        Back
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Tiêu đề chính -->
+      <h1 class="readinglesson">IELTS Listening Practice</h1>
+
+      <!-- Giới thiệu -->
+      <section class="intro">
+        <p>
+          Welcome to the Listening Lessons page! Here, you will find a variety
+          of exercises and strategies to improve your listening skills. Build
+          your confidence and learn how to tackle different types of listening
+          tasks effectively.
+        </p>
+      </section>
+
+      <!-- Các bài học -->
+      <div class="lesson-buttons">
+        <a href="reading/lesson5.html">Làm quen các dạng bài trong listening</a>
+        <a href="./basic_read/lession.html"
+          >Xây dựng Nền tảng Từ 0 – IELTS 3.0</a
+        >
+        <a href="reading/lesson2.html">Bứt phá IELTS 3.0 – 4.5</a>
+        <a href="reading/lesson3.html">Chinh phục IELTS 4.5-5.5</a>
+        <a href="reading/lesson4.html">Thần tốc IELTS 5.5 - 6.5</a>
+        <a href="reading/lesson5.html"
+          >Chế độ luyện tập chuyên sâu trong 1 tháng</a
+        >
+      </div>
+
+      <!-- Phần mẹo làm bài nghe -->
+      <section class="tips-section">
+        <h2>Listening Tips</h2>
+        <ul>
+          <li>
+            Familiarize yourself with different accents (British, Australian,
+            American).
+          </li>
+          <li>
+            Read the questions before the audio starts to understand the focus.
+          </li>
+          <li>
+            Pay attention to signposting words such as "however," "but," and
+            "finally."
+          </li>
+          <li>Don’t get stuck on one question—move on if you're unsure.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

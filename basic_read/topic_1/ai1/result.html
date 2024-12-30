@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style_bai_lis.css" />
+    <title>Results</title>
+  </head>
+  <body>
+    <header class="header">
+      <button class="back-button" onclick="goBack()">Back</button>
+      <button class="try-again-button" onclick="tryAgain()">Try Again</button>
+    </header>
+    <main class="main-content">
+      <div class="result-summary">
+        <h2>Your Results</h2>
+        <p>Correct: <span id="correct-count">0</span></p>
+        <p>Incorrect: <span id="incorrect-count">0</span></p>
+      </div>
+      <div class="answers" id="answers">
+        <!-- Answer details will be added dynamically -->
+      </div>
+    </main>
+    <script src="script_bai_lis.js"></script>
+  </body>
+</html>

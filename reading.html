@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reading Lessons</title>
+    <link rel="stylesheet" href="style_reading.css" />
+  </head>
+  <style>
+    /* Reset CSS */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Variables */
+    :root {
+      --primary-color: #3f51b5;
+      --secondary-color: #1a237e;
+      --accent-color: #536dfe;
+      --background-color: #e3f2fd;
+      --text-color: #1a237e;
+      --shadow-color: rgba(63, 81, 181, 0.1);
+      --white: #ffffff;
+      --shadow-sm: 0 2px 8px var(--shadow-color);
+      --shadow-md: 0 4px 12px var(--shadow-color);
+      --shadow-lg: 0 8px 24px var(--shadow-color);
+      --border-radius: 16px;
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Body styles */
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      line-height: 1.7;
+      color: var(--text-color);
+      background: linear-gradient(135deg, var(--background-color), #fff);
+      min-height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary-color);
+      padding: 20px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+    }
+
+    header .Back {
+      background: var(--white);
+      color: var(--primary-color);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    header .Back:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      background: var(--accent-color);
+      color: var(--white);
+    }
+
+    /* Main Content Layout */
+    main {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 5%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    /* Progress Tracker - Moved to sidebar */
+    .progress-tracker {
+      background: var(--white);
+      padding: 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 30px;
+    }
+
+    .progress-tracker h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 1.3em;
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      background-color: var(--background-color);
+      border-radius: 30px;
+      height: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar span {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--accent-color)
+      );
+      border-radius: 30px;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Tips section - Moved to sidebar */
+    .tips-section {
+      background: var(--white);
+      padding: 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+    }
+
+    .tips-section h2 {
+      color: var(--primary-color);
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .tips-section ul li {
+      margin-bottom: 15px;
+      padding-left: 25px;
+      position: relative;
+      font-size: 0.95em;
+    }
+
+    .tips-section ul li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+    }
+
+    /* Main Content Area */
+    .content-area {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    /* Title Section */
+    .readinglesson {
+      border-radius: 25px;
+      font-size: 2.5em;
+      padding: 40px;
+      margin: 0;
+      font-weight: 800;
+      text-align: left;
+      background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color)
+      );
+      color: var(--white);
+    }
+
+    /* Intro section */
+    .intro {
+      padding: 40px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .intro p {
+      font-size: 1.15em;
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+
+    /* Lesson buttons */
+    .lesson-buttons {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .lesson-buttons a {
+      text-decoration: none;
+      font-size: 1.1em;
+      padding: 20px;
+      background: var(--background-color);
+      color: var(--text-color);
+      border-radius: var(--border-radius);
+      text-align: left;
+      font-weight: 500;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .lesson-buttons a::after {
+      content: "→";
+      font-size: 1.2em;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: var(--transition);
+    }
+
+    .lesson-buttons a:hover {
+      background: var(--white);
+      border-color: var(--primary-color);
+      transform: translateX(10px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .lesson-buttons a:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Sample Exercise */
+    .sample-exercise {
+      padding: 40px;
+      background: var(--background-color);
+      margin-top: auto;
+    }
+
+    .sample-exercise h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 1.6em;
+    }
+
+    .sample-exercise blockquote {
+      background: var(--white);
+      border-left: 4px solid var(--accent-color);
+      margin: 15px 0;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      main {
+        padding: 20px;
+        margin: 20px auto;
+      }
+
+      .readinglesson {
+        font-size: 2em;
+        padding: 30px;
+      }
+
+      .intro,
+      .lesson-buttons,
+      .sample-exercise {
+        padding: 30px;
+      }
+
+      .sidebar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animations */
+    .content-area {
+      animation: slideIn 0.6s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: var(--white);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(-20px);
+      transition: var(--transition);
+    }
+
+    .modal.show .modal-content {
+      transform: translateY(0);
+    }
+
+    .close-modal {
+      position: absolute;
+      right: 2px;
+      top: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      color: var(--accent-color);
+    }
+  </style>
+  <body>
+    <!-- Header -->
+    <header>
+      <button onclick="window.location.href='index.html'" class="Back">
+        Back
+      </button>
+    </header>
+    <div id="lessonModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modalContent">
+          <!-- Content will be loaded here -->
+        </div>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <main>
+      <!-- Tiêu đề chính -->
+      <h1 class="readinglesson">Reading Lessons</h1>
+
+      <!-- Giới thiệu -->
+      <section class="intro">
+        <p>
+          Welcome to the Reading Lessons page! Here, you can practice and
+          improve your IELTS reading skills through a variety of exercises.
+          Follow the tips and complete the lessons to master this essential
+          skill.
+        </p>
+      </section>
+
+      <!-- Các bài học -->
+      <div class="lesson-buttons">
+        <a data-lesson="./basic_read/lession.html"
+          >Video bai giang ve cac dang bai trong IELTS reading</a
+        >
+        <a data-lesson="./basic_read/lession.html"
+          >Xây dựng Nền tảng Từ 0 – IELTS 3.0</a
+        >
+        <a data-lesson="./basic_read/lession.html">Bứt phá IELTS 3.0 – 4.5</a>
+        <a data-lesson="./basic_read/lession.html">Chinh phục IELTS 4.5-5.5</a>
+        <a data-lesson="./basic_read/lession.html">Thần tốc IELTS 5.5 - 6.5</a>
+        <a data-lesson="./basic_read/lession.html"
+          >Chế độ luyện tập chuyên sâu trong 1 tháng</a
+        >
+      </div>
+
+      <!-- Phần mẹo làm bài đọc -->
+      <section class="tips-section">
+        <h2>Reading Tips</h2>
+        <ul>
+          <li>
+            Skim through the text to get the main idea before answering
+            questions.
+          </li>
+          <li>
+            Underline or highlight key words in the questions to focus your
+            search.
+          </li>
+          <li>
+            Read the questions carefully and pay attention to tricky wording.
+          </li>
+          <li>Practice reading quickly but effectively to save time.</li>
+        </ul>
+      </section>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("lessonModal");
+        const modalContent = document.getElementById("modalContent");
+        const closeBtn = document.querySelector(".close-modal");
+
+        // Thêm sự kiện click cho tất cả các nút bài học
+        document.querySelectorAll(".lesson-buttons a").forEach((button) => {
+          button.addEventListener("click", async function (e) {
+            e.preventDefault();
+            const lessonUrl = this.getAttribute("data-lesson");
+
+            try {
+              // Hiển thị modal
+              modal.style.display = "flex";
+              setTimeout(() => modal.classList.add("show"), 10);
+
+              // Tải nội dung bài học
+              const response = await fetch(lessonUrl);
+              if (!response.ok) throw new Error("Failed to load content");
+              const data = await response.text();
+
+              // Xử lý nội dung HTML được tải về
+              const tempDiv = document.createElement("div");
+              tempDiv.innerHTML = data;
+
+              // Lấy phần nội dung chính (có thể điều chỉnh selector tùy theo cấu trúc HTML của bài học)
+              const mainContent =
+                tempDiv.querySelector("main") ||
+                tempDiv.querySelector("body") ||
+                tempDiv;
+              modalContent.innerHTML = mainContent.innerHTML;
+            } catch (error) {
+              modalContent.innerHTML = `
+                          <div style="text-align: center; padding: 20px;">
+                              <h2>Error Loading Content</h2>
+                              <p>Sorry, we couldn't load the lesson content. Please try again later.</p>
+                          </div>`;
+              console.error("Error loading lesson:", error);
+            }
+          });
+        });
+
+        // Đóng modal khi click vào nút close
+        closeBtn.addEventListener("click", () => {
+          modal.classList.remove("show");
+          setTimeout(() => {
+            modal.style.display = "none";
+            modalContent.innerHTML = ""; // Xóa nội dung cũ
+          }, 400); // Đợi animation kết thúc
+        });
+
+        // Đóng modal khi click bên ngoài
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            closeBtn.click();
+          }
+        });
+
+        // Đóng modal khi nhấn ESC
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.style.display === "flex") {
+            closeBtn.click();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
